@@ -1,0 +1,12 @@
+To start playing local sound files using SBP, place the sound files in this folder.
+1. Place the sound files in this folder.
+2. Open SBP using start-app.
+3. Click "Add Item". A window should pop-up.
+4. If you haven't already, create a Category. Give it any name.
+5. Click "Add Item" at the bottom of the pop-up window. A confirmation notification should appear. 
+6. Click "Button" to switch to the sound button tab.
+7. Give the sound button a name.
+8. Since the sound exists here at the Sounds folder, in the Button Path input box, type the file name of the sound file. Include the file extension. (Ex. NeverGonnaGiveYouUp.mp3).
+9. Make sure that the checkbox "The file is stored in the program directory" is selected (the box is purple).
+10. Select the category where the sound button will be placed. 
+11. Click "Add Item" at the bottom of the pop-up window. A confirmation notification should appear. 

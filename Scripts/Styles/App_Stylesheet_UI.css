@@ -6,6 +6,25 @@
     transition: all var(--Element-Transition-Delay), outline 0s;
 	outline: var(--Debug-ElementOutline);
 	-webkit-tap-highlight-color: transparent;
+	border-width: 3px;
+}
+
+body[Animations = "Disabled"] *{
+	animation-duration: 0s !important;
+	animation-fill-mode: forwards !important;
+	animation-iteration-count: 1 !important;
+}
+
+body[Transitions = "Disabled"] *{
+	transition: all 0s !important;
+}
+
+body[SmoothScrolling = "Disabled"] *{
+	scroll-behavior: unset;
+}
+
+img{
+	/* filter: var(--Element-Icon-Brightness); */
 }
 
 a{
@@ -57,7 +76,11 @@ body{
 	background-color: var(--BG-Color-General);
 }
 
+
+
 .MainContent_Container{
+	/* backdrop-filter: var(--Element-BackdropBlur); */
+	
 	display: grid;
 	grid-template-columns: 0px 1fr;
 	width: 100%;
@@ -65,6 +88,22 @@ body{
 	position: fixed;
 	transition-timing-function: cubic-bezier(0.22, 0, 0, 0.99);
 	pointer-events: none;
+}
+
+.MainContent_Wallpaper{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: -2;
+	background-position: center;
+	background-size: cover;
+	background-image: var(--BG-Img-Wallpaper-Main);
+	background-color: var(--BG-Color-MainView);
+	filter: blur(var(--BG-Img-Wallpaper-Main-Blur)) brightness(var(--BG-Img-Wallpaper-Main-Darken));
+	opacity: var(--BG-Img-Wallpaper-Main-Opacity);
+	transform: scale(1.1);
 }
 
 .MainContent_Container[Style_PusherActive="Active"]{
@@ -82,7 +121,7 @@ body{
 
 
 .MainContent{
-    background-color: rgb(211, 139, 44);
+    /* background-color: rgb(211, 139, 44); */
     width: calc(100% - 50px);
     margin-left: 53px;
     margin-top: 76px;
@@ -95,9 +134,10 @@ body{
     margin: 0;
     overflow-y: auto;
     scroll-behavior: smooth;
-    background-color: var(--BG-Color-General);
+    
 	pointer-events: auto;
 	transition-timing-function: cubic-bezier(0.22, 0, 0, 0.99);
+	position: relative;
 }
 
 .MainContent[Style_Margin_Header="Enabled"]{
@@ -126,9 +166,16 @@ body{
 	min-height: 100%;
     height: auto;
     overflow-x: none;
+	max-width: 100%;
     /* overflow: hidden; */
     /* background-color: aqua; */
+	max-height: 100%;
+	overflow-y: auto;
     
+}
+
+.Content > div{
+	
 }
 
 .Content[Style_Margin="Enabled"]{
@@ -158,7 +205,7 @@ body{
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr 75px;
+    grid-template-rows: 1fr 100px;
 }
 
 .LoadingScreen_Simple > *{
@@ -179,6 +226,7 @@ body{
 .LoadingScreen_Simple_Main_Icon{
     height: 100px;
     margin-bottom: 10px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .LoadingScreen_Simple_Main_Title{
@@ -196,7 +244,7 @@ body{
 
 .LoadingScreen_Simple_Bottom_Loader{
     max-width: 500px;
-    border-radius: 5px;
+    border-radius: 5px;transform: translateY(-50px);
 }
 
 .LoadingScreen_Simple_Bottom_Copyright{
@@ -204,11 +252,13 @@ body{
     grid-template-columns: 30px 1fr;
     align-items: center;
     grid-gap: 10px;
-    margin-top: 15px;
+    /* margin-top: 15px; */
+	transform: translateY(-10px);
 }
 
 .LoadingScreen_Simple_Bottom_Copyright_Icon{
     height: 30px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .LoadingScreen_Simple_Bottom_Copyright_Title{
@@ -221,7 +271,7 @@ body{
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr 75px;
+    grid-template-rows: 1fr 100px;
     align-items: center;
     justify-content: center;
 }
@@ -259,6 +309,7 @@ body{
 .LoadingScreen_Splash_Window_Main_Icon{
     margin: 0;
     height: 50px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .LoadingScreen_Splash_Window_Main_Text{
@@ -298,7 +349,8 @@ body{
     grid-template-columns: 30px 1fr;
     align-items: center;
     grid-gap: 10px;
-    margin-top: 15px;
+    /* margin-top: 15px; */
+	transform: translateY(-10px);
 }
 
 .LoadingScreen_Splash_Bottom_Copyright_Title{
@@ -308,6 +360,7 @@ body{
 
 .LoadingScreen_Splash_Bottom_Copyright_Icon{
     height: 30px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .ClockScreen{
@@ -315,10 +368,12 @@ body{
 	width: 100%;
 	height: 100%;
 	z-index: 149;
+	background-color: var(--BG-Color-MainView);
 	background-image: var(--BG-Img-Wallpaper-Clock);
 	background-position: center;
 	background-size: cover;
 	background-attachment: fixed;
+	
 	/* display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -335,15 +390,15 @@ body{
 }
 
 .ClockScreen:hover{
-	transform: scale(1.05);
+	/* transform: scale(1.05); */
 }
 
 .ClockScreen:hover > .ClockScreen_Main{
-	transform: scale(0.9);
+	/* transform: scale(0.9); */
 }
 
 .ClockScreen:hover > .ClockScreen_Extra{
-	opacity: 0%;
+	/* opacity: 0%; */
 }
 
 .ClockScreen_Main{
@@ -382,7 +437,7 @@ body{
 	justify-content: left;
 	align-items: center;
 	padding: 10px;
-	transition-duration: 1s;
+	transition-duration: 0.2s;
 	transition-timing-function: ease-out;
 }
 
@@ -395,17 +450,19 @@ body{
 
 .ClockScreen_Extra_Icon{
 	height: 30px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Header{
     width: 100%;
     height: 40px;
-    background-color: var(--BG-Color-General-Menus);
+    background-color: var(--BG-Color-Overlay-Header);
     display: grid;
     grid-template-columns: auto 1fr auto;
     /* box-shadow: var(--Element-BoxShadow); */
     border-bottom: solid var(--Color-Borders);
     position: fixed;
+	z-index: 10;
     /* opacity: 50%; */
 }
 
@@ -434,6 +491,7 @@ body{
 
 .Header_SidebarToggle_Icon{
     width: 30px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Header_PageNavigation{
@@ -450,6 +508,7 @@ body{
 .Header_PageNavigation_Icon{
     height: 25px;
     margin-right: 10px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Header_PageNavigation_Title{
@@ -495,6 +554,7 @@ body{
 
 .Header_StatusTray_Extras_Icon{
     height: 30px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Header_SidebarToggle:hover, .Header_PageNavigation:hover, .Header_StatusTray:hover, .Ribbon_Section_Item:hover{
@@ -508,14 +568,15 @@ body{
 }
 
 .Header_PageNavigation_Menu{
-    background-color: var(--BG-Color-Opacitated);
+    /* background-color: var(--BG-Color-Opacitated); */
     /* background-color: red; */
+	background-color: var(--BG-Color-General);
     position: fixed;
     top: 40px;
     left: 50px;
     width: 400px;
     height: auto;
-    backdrop-filter: var(--Element-BackdropBlur);
+    /* backdrop-filter: var(--Element-BackdropBlur); */
     border: solid var(--Color-Borders);
     display: none;
     grid-template-rows: auto auto;
@@ -533,9 +594,15 @@ body{
 
 .Header_PageNavigation_Menu[State="Active"]{
 	display: grid;
-	animation-name: Overlays_Menu_Open;
 }
 
+.Header_PageNavigation_Menu_Content, .Header_StatusTray_Menu_Content, .Header_PageNavigation_Menu_Button_Item{
+	/* position: absolute; */
+	animation-delay: 0.1s;
+	animation-name: Overlays_Menu_Open;
+	animation-fill-mode: forwards;
+	opacity: 0%;
+}
 
 .Header_PageNavigation_Menu_Title{
     font-family: var(--Text-Font-Primary);
@@ -556,38 +623,43 @@ body{
 
 .Header_PageNavigation_Menu_Button_Item{
     padding: 10px;
-	border-radius: 7px;
-	background-color: var(--BG-Color-Button-General);
+	border-radius: 5px;
 	outline: none;
-	width: auto;
-	border-style: solid;
-	border-color: var(--BG-Color-Button-General-Accent);
-	border-width: 3px;
-	background-color: var(--BG-Color-Button-General);
 	cursor: pointer;
 	user-select: none;
 	transition: var(--Element-Transition-Delay);
-    display: grid;
+    display: grid !important;
     grid-template-columns: 20px 1fr;
     grid-gap: 5px;
     align-items: center;
     height: 20px;
+	border-style: solid;
+	border-color: var(--BG-Color-Button-Secondary-Border-Primary);
+	border-bottom-color: var(--BG-Color-Button-Secondary-Border-Secondary);
+	background-color: var(--BG-Color-Button-Secondary);
+	border-width: 3px;
+	color: var(--BG-Color-Button-Secondary-Text);
 }
 
 .Header_PageNavigation_Menu_Button_Item:hover{
-	border-color: var(--BG-Color-Button-General-Accent-Hover);
-	background-color: var(--BG-Color-Button-General-Hover);
-	box-shadow: var(--Element-BoxShadow);
+	border-color: var(--BG-Color-Button-Secondary-Border-Primary-Hover);
+	border-bottom-color: var(--BG-Color-Button-Secondary-Border-Secondary-Hover);
+	color: var(--BG-Color-Button-Secondary-Text-Hover);
+	background-color: var(--BG-Color-Button-Secondary-Hover);
+	box-shadow: var(--Element-BoxShadow-Hover);
 }
 
 .Header_PageNavigation_Menu_Button_Item:active{
-	border-color: var(--BG-Color-Button-General-Accent-Focus);
-	background-color: var(--BG-Color-Button-General-Focus);
-    transform: scale(0.95);
+	border-color: var(--BG-Color-Button-Secondary-Border-Primary-Focus);
+	border-bottom-color: var(--BG-Color-Button-Secondary-Border-Secondary-Focus);
+	color: var(--BG-Color-Button-Secondary-Text-Focus);
+	background-color: var(--BG-Color-Button-Secondary-Focus);
+	box-shadow: var(--Element-BoxShadow-Focus);
 }
 
 .Header_PageNavigation_Menu_Button_Item_Icon{
     width: 20px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Header_PageNavigation_Menu_Button_Item_Text{
@@ -597,14 +669,15 @@ body{
 }
 
 .Header_StatusTray_Menu{
-    background-color: var(--BG-Color-Opacitated);
+    /* background-color: var(--BG-Color-Opacitated); */
     /* background-color: red; */
+	background-color: var(--BG-Color-General);
     position: fixed;
     top: 40px;
     right: -3px;
     width: 320px;
     height: auto;
-    backdrop-filter: var(--Element-BackdropBlur);
+    /* backdrop-filter: var(--Element-BackdropBlur); */
     border: solid var(--Color-Borders);
     display: none;
     grid-template-rows: auto auto auto;
@@ -676,13 +749,14 @@ body{
     width: 100%;
     position: fixed;
     top: 0;
-    background-color: var(--BG-Color-General-Menus);
+    background-color: var(--BG-Color-Overlay-Ribbon);
     border-bottom: solid var(--Color-Borders);
     display: flex;
     flex-direction: row;
     margin-left: 0;
 	overflow-x: auto;
 	overflow-y: hidden;
+	z-index: 10;
     /* opacity: 50%; */
 }
 
@@ -692,7 +766,7 @@ body{
 }
 
 .Ribbon[Style_Margin_Header="Enabled"]{
-	top: 43px
+	top: 42px
 }
 
 .Ribbon_Section{
@@ -720,6 +794,7 @@ body{
 
 .Ribbon_Section_Item_Icon{
     height: 20px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Ribbon_Section_Item_Text{
@@ -819,6 +894,7 @@ body{
 	text-align: center;
 	/* padding: 5px; */
 	user-select: none;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Tabs_Vertical_Container_Selector_Item_Text{
@@ -940,6 +1016,7 @@ body{
 	width: 25px;
 	height: 25px;
 	padding-right: 5px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Tab_Horizontal_Container_Selector_Item_Text{
@@ -954,10 +1031,10 @@ body{
 }
 
 .Content_Item{
-    /* width: 100%; */
+    width: inherit;
     display: flex;
     flex-direction: column;
-    position: unset;
+    position: absolute;
 	padding-bottom: 50px;
 }
 
@@ -968,10 +1045,11 @@ body{
 	border-top: solid var(--Color-Dividers);
 	border-right: solid var(--Color-Dividers) 3px;
 	overflow-x: hidden; 
-	width: 40px;
+	width: var(--Sidebar-Width-Collapsed);
 	height: 100%;
 	position: fixed;
 	transition: var(--Element-Transition-Delay);
+	transition: width 0s;
 	z-index: 50;
     padding: 5px;
     /* opacity: 50%; */
@@ -988,10 +1066,12 @@ body{
 
 .Sidebar[State="Expanded"]{
 	width: var(--Sidebar-Width-Expanded);
+	transition: var(--Element-Transition-Delay);
 }
 
 .Sidebar[State="Collapsed"]{
 	width: var(--Sidebar-Width-Collapsed);
+	transition: var(--Element-Transition-Delay);
 }
 
 .Sidebar[State="Collapsed_Hide"]{
@@ -1003,11 +1083,13 @@ body{
     grid-template-columns: 40px 1fr;
     height: 35px;
     padding: 0px;
+	border: solid var(--BG-Color-Overlay-Sidebar);
 }
 
 .Sidebar > div > .Tabs_Vertical_Container_Selector_Item_Icon > .Tabs_Vertical_Container_Selector_Item_Icon_Icon{
     width: 20px;
     height: 20px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Sidebar > div > .Tabs_Vertical_Container_Selector_Item_Icon > h2{
@@ -1016,12 +1098,14 @@ body{
 
 .Sidebar > div > .Tabs_Vertical_Container_Selector_Item_Icon > img{
     transform: translateX(-3px);
+	filter: var(--Element-Icon-Brightness);
 }
 
 
 .Sidebar > div > .Tabs_Vertical_Container_Selector_Item_Icon{
     width: 40px;
     height: 30px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Accordion{
@@ -1592,14 +1676,15 @@ body{
 }
 
 .Subwindow_Bottom_Button_PrimaryAction{
-	padding: 7px;
+	padding: 8px;
 	border-radius: 5px;
-	background-color: var(--Accent-Color);
+	background-color: var(--BG-Color-Button-Primary);
 	font-family: var(--Text-Font-Secondary), "Arial", "Helvetica";
-	color: var(--Text-Color);
+	color: var(--BG-Color-Button-Primary-Text);
 	outline: none;
 	width: 100%;
-	border: solid var(--BG-Color-Button-General-Accent);
+	border: solid var(--BG-Color-Button-Primary-Border-Primary);
+	border-bottom: solid var(--BG-Color-Button-Primary-Border-Secondary);
 	cursor: pointer;
 	font-size: 17px;
 	text-align: center;
@@ -1613,22 +1698,32 @@ body{
 
 
 .Subwindow_Bottom_Button_PrimaryAction:hover{
-	border-color: var(--Accent-Color-Hover);
+	background-color: var(--BG-Color-Button-Primary-Hover);
+	border-color: var(--BG-Color-Button-Primary-Border-Primary-Hover);
+	border-bottom-color: var(--BG-Color-Button-Primary-Border-Secondary-Hover);
+	box-shadow: var(--Element-BoxShadow-Hover);
+}
+
+.Subwindow_Bottom_Button_PrimaryAction:active{
+	background-color: var(--BG-Color-Button-Primary-Focus);
+	border-color: var(--BG-Color-Button-Primary-Border-Primary-Focus);
+	border-bottom-color: var(--BG-Color-Button-Primary-Border-Secondary-Focus);
 	box-shadow: var(--Element-BoxShadow-Hover);
 }
 
 .Subwindow_Bottom_Button_SecondaryAction{
-	padding: 7px;
+	padding: 8px;
 	border-radius: 5px;
-	background-color: var(--BG-Color-Button-General);
+	background-color: var(--BG-Color-Button-Secondary);
 	font-family: var(--Text-Font-Secondary), "Arial", "Helvetica";
-	color: var(--Text-Color);
+	color: var(--BG-Color-Button-Secondary-Text);
 	outline: none;
 	width: 100%;
 	border-style: solid;
-	border-color: var(--BG-Color-Button-General-Accent);
+	border-color: var(--BG-Color-Button-Secondary-Border-Primary);
+	border-bottom-color: var(--BG-Color-Button-Secondary-Border-Secondary);
 	border-width: 3px;
-	background-color: var(--BG-Color-Button-General);
+	/* background-color: var(--BG-Color-Button-General); */
 	cursor: pointer;
 	font-size: 17px;
 	text-align: center;
@@ -1641,9 +1736,17 @@ body{
 
 
 .Subwindow_Bottom_Button_SecondaryAction:hover{
-	border-color: var(--BG-Color-Button-General-Accent-Hover);
-	background-color: var(--BG-Color-Button-General-Hover);
-	box-shadow: var(--Element-BoxShadow);
+	background-color: var(--BG-Color-Button-Secondary-Hover);
+	border-color: var(--BG-Color-Button-Secondary-Border-Primary-Hover);
+	border-bottom-color: var(--BG-Color-Button-Secondary-Border-Secondary-Hover);
+	box-shadow: var(--Element-BoxShadow-Hover);
+}
+
+.Subwindow_Bottom_Button_PrimaryAction:active{
+	background-color: var(--BG-Color-Button-Secondary-Focus);
+	border-color: var(--BG-Color-Button-Secondary-Border-Primary-Focus);
+	border-bottom-color: var(--BG-Color-Button-Secondary-Border-Secondary-Focus);
+	box-shadow: var(--Element-BoxShadow-Hover);
 }
 
 .Modal{
@@ -1773,6 +1876,7 @@ body{
 .Toast_Icon{
 	height: 40px;
 	grid-area: 1 / 1 / 3 / 2;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Toast_Title{
@@ -1799,13 +1903,17 @@ body{
 .Projects_List{
 	display: flex;
 	flex-direction: column;
+	padding-top: 10px;
 	/* background-color: blue; */
 }
 
 .Projects_List_Item{
 	display: grid;
+    grid-template-areas: 
+        "Content Controls"
+        "Information Controls"
+    ;
 	grid-template-columns: 1fr auto;
-	align-item: center;
 	padding: 10px;
 	border-radius: 5px;
 	background-color: var(--BG-Color-Button-General);
@@ -1822,13 +1930,30 @@ body{
 	border-color: var(--BG-Color-Button-General-Accent-Hover);
 }
 
-.Projects_List_Item_Information{
-	display: flex;
-	flex-direction: column;
+.Projects_List_Item:focus{
+    outline: solid var(--Accent-Color) 2px;
 }
 
+.Projects_List_Item_Content{
+    grid-area: Content;
+}
+
+.Projects_List_Item_Content_Title{
+    font-family: var(--Text-Font-Primary);
+    color: var(--Text-Color);
+    text-align: left;
+    margin: 0;
+}
+
+.Projects_List_Item_Information{
+	grid-area: Information;
+    display: flex;
+    flex-direction: row;
+}
+
+
 .Projects_List_Item_Information:hover{
-	background-color: var(--BG-Color-Button-General-Hover);
+	/* background-color: var(--BG-Color-Button-General-Hover); */
 }
 
 .Projects_List_Item_Information_Title{
@@ -1850,21 +1975,33 @@ body{
 	opacity: 25%;
 }
 
-.Projects_List_Item_Information_Details_Item:not(:nth-child(1)){
+.Projects_List_Item_Information_Details_Item:not(:nth-child(1)), .Projects_List_Item_Information_Data:not(:nth-child(1)){
 	padding-left: 5px;
 	border-left: solid var(--Color-Borders) 2px;	
+}
+
+.Projects_List_Item_Information_Data{
+    font-family: var(--Text-Font-Secondary);
+    color: var(--Text-Color);
+    text-align: left;
+    opacity: 50%;
+    margin: 0;
 }
 
 .Projects_List_Item_Controls{
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	grid-area: Controls;
 }
 
 .Projects_List_Item_Controls_Item{
 	border-radius: 5px;
 	padding: 5px;
 	cursor: pointer;
+	display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -1874,6 +2011,7 @@ body{
 
 .Projects_List_Item_Controls_Item_Icon{
 	height: 30px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .Projects_CurrentlyLoaded{
@@ -1930,6 +2068,7 @@ body{
 
 .Projects_CurrentlyLoaded_Controls_Item_Icon{
 	height: 30px;
+	filter: var(--Element-Icon-Brightness);
 }
 
 .General_Title{
@@ -1944,18 +2083,19 @@ body{
     color: var(--Text-Color);
 }
 
-.General_Button{
+.General_Button, .General_Button_Secondary{
 	padding: 10px;
 	border-radius: 5px;
-	background-color: var(--BG-Color-Button-General);
+	background-color: var(--BG-Color-Button-Secondary);
 	font-family: var(--Text-Font-Secondary), "Arial", "Helvetica";
-	color: var(--Text-Color);
+	color: var(--BG-Color-Button-Secondary-Text);
 	outline: none;
 	width: auto;
 	border-style: solid;
-	border-color: var(--BG-Color-Button-General-Accent);
+	border-color: var(--BG-Color-Button-Secondary-Border-Primary);
+	border-bottom-color: var(--BG-Color-Button-Secondary-Border-Secondary);
 	border-width: 3px;
-	background-color: var(--BG-Color-Button-General);
+	/* background-color: var(--BG-Color-Button-General); */
 	cursor: pointer;
 	font-size: 17px;
 	text-align: center;
@@ -1965,18 +2105,72 @@ body{
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+
+	outline: solid rgba(0, 0, 0, 0) 3px;
 }
 
 
-.General_Button:hover{
-	border-color: var(--BG-Color-Button-General-Accent-Hover);
-	background-color: var(--BG-Color-Button-General-Hover);
-	box-shadow: var(--Element-BoxShadow);
+.General_Button:hover, .General_Button_Secondary:hover{
+	border-color: var(--BG-Color-Button-Secondary-Border-Primary-Hover);
+	border-bottom-color: var(--BG-Color-Button-Secondary-Border-Secondary-Hover);
+	color: var(--BG-Color-Button-Secondary-Text-Hover);
+	background-color: var(--BG-Color-Button-Secondary-Hover);
+	box-shadow: var(--Element-BoxShadow-Hover);
 }
 
-.General_Button:active{
-	border-color: var(--BG-Color-Button-General-Accent-Focus);
-	background-color: var(--BG-Color-Button-General-Focus);
+.General_Button:active, .General_Button_Secondary:active{
+	border-color: var(--BG-Color-Button-Secondary-Border-Primary-Focus);
+	border-bottom-color: var(--BG-Color-Button-Secondary-Border-Secondary-Focus);
+	color: var(--BG-Color-Button-Secondary-Text-Focus);
+	background-color: var(--BG-Color-Button-Secondary-Focus);
+	box-shadow: var(--Element-BoxShadow-Focus);
+}
+
+.General_Button_Primary, .General_Button[Primary]{
+	padding: 10px;
+	border-radius: 5px;
+	background-color: var(--BG-Color-Button-Primary);
+	font-family: var(--Text-Font-Secondary), "Arial", "Helvetica";
+	color: var(--BG-Color-Button-Primary-Text);
+	outline: none;
+	width: auto;
+	border-style: solid;
+	border-color: var(--BG-Color-Button-Primary-Border-Primary);
+	border-bottom-color: var(--BG-Color-Button-Primary-Border-Secondary);
+	border-width: 3px;
+	/* background-color: var(--BG-Color-Button-General); */
+	cursor: pointer;
+	font-size: 17px;
+	text-align: center;
+	user-select: none;
+	transition: var(--Element-Transition-Delay);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	outline: solid rgba(0, 0, 0, 0) 3px;
+}
+
+
+.General_Button_Primary:hover, .General_Button[Primary]:hover{
+	border-color: var(--BG-Color-Button-Primary-Border-Primary-Hover);
+	border-bottom-color: var(--BG-Color-Button-Primary-Border-Secondary-Hover);
+	color: var(--BG-Color-Button-Primary-Text-Hover);
+	background-color: var(--BG-Color-Button-Primary-Hover);
+	box-shadow: var(--Element-BoxShadow-Hover);
+}
+
+.General_Button_Primary:active, .General_Button[Primary]:active{
+	border-color: var(--BG-Color-Button-Primary-Border-Primary-Focus);
+	border-bottom-color: var(--BG-Color-Button-Primary-Border-Secondary-Focus);
+	color: var(--BG-Color-Button-Primary-Text-Focus);
+	background-color: var(--BG-Color-Button-Primary-Focus);
+	box-shadow: var(--Element-BoxShadow-Focus);
+}
+
+.General_Button:focus{
+	outline: solid var(--BG-Color-Button-Primary-Border-Primary-Focus) 3px;
 }
 
 .General_Button[Sizing_Width="Fit_Content"]{
@@ -1985,6 +2179,7 @@ body{
 
 .General_Button_Icon{
 	height: 20px;
+	
 }
 
 .General_Button_Icon[Position="Left"]{
@@ -2070,6 +2265,60 @@ body{
 	/* transform: rotate(270deg); */
 }
 
+.Projects_Manifest_List{
+	display: flex;
+    flex-direction: column;
+}
+
+.Projects_Manifest_List_Item{
+	display: flex;
+    flex-direction: column;
+    border-style: solid;
+	border-color: transparent;
+	border-bottom-color: transparent;
+    background-color: transparent;
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border-width: 3px;
+}
+
+.Projects_Manifest_List_Item:focus{
+    border-color: var(--Accent-Color);
+}
+
+.Projects_Manifest_List_Item:hover{
+    border-color: var(--BG-Color-Button-Secondary-Border-Primary-Hover);
+	border-bottom-color: var(--BG-Color-Button-Secondary-Border-Secondary-Hover);
+	color: var(--BG-Color-Button-Secondary-Text-Hover);
+	background-color: var(--BG-Color-Button-Secondary-Hover);
+	box-shadow: var(--Element-BoxShadow-Hover);
+}
+
+.Projects_Manifest_List_Item:active{
+    border-color: var(--BG-Color-Button-Secondary-Border-Primary-Focus);
+	border-bottom-color: var(--BG-Color-Button-Secondary-Border-Secondary-Focus);
+	color: var(--BG-Color-Button-Secondary-Text-Focus);
+	background-color: var(--BG-Color-Button-Secondary-Focus);
+	box-shadow: var(--Element-BoxShadow-Focus);
+}
+
+.Projects_Manifest_List_Item_Title{
+    font-family: var(--Text-Font-Primary);
+    color: var(--Text-Color);
+    font-size: 20px;
+    margin: 0;
+}
+
+.Projects_Manifest_List_Item_Title_Data{
+    font-family: var(--Text-Font-Secondary);
+    color: var(--Text-Color);
+    margin: 0;
+    font-size: 15px;
+	opacity: 75%;
+}
+
 *[Display="none"]{
     display: none;
 }
@@ -2090,4 +2339,12 @@ body{
 	pointer-events: none;
 	opacity: 50%;
 	cursor: not-allowed;
+}
+
+*[Opacity="Transparent"]{
+	opacity: 0%;
+}
+
+*[Opacity="Opaque"]{
+	opacity: 100%;
 }

@@ -6,6 +6,8 @@
     padding: 10px;
     display: grid;
     grid-template-rows: 1fr 50px;
+    z-index: 1500;
+    pointer-events: all;
 }
 
 .Debugger_Console_Results{

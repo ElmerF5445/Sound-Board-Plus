@@ -1,0 +1,354 @@
+.Subwindow{
+    overflow-x: hidden;
+}
+
+.Accordion_Title, .Accordion_Title[State = "Edit"]{
+    grid-template-columns: 1fr auto auto auto;
+    grid-gap: 10px;
+}
+
+.Accordion_Title[State = "Edit"] > .Accordion_Title_Control{
+    display: block;
+}
+
+.Accordion_Title[State = "Play"]{
+    grid-template-columns: 1fr auto;
+    grid-gap: 10px;
+}
+
+.Accordion_Title[State = "Play"] > .Accordion_Title_Control{
+    display: none;
+}
+
+.Accordion_Title_Arrow, .Accordion_Title_Control{
+    width: 20px;
+    /* display: none; */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.Accordion_Title_Control:hover{
+    background-color: var(--BG-Color-Button-Secondary-Hover);
+}
+
+.Content_Item{
+    height: 100%;
+    padding-bottom: 0;
+}
+
+.SBP_Board{
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+    width: calc(100% - 62px);
+    position: relative;
+}
+
+.SBP_Board[State = "Expanded"]{
+    width: calc(100% - 522px);
+}
+
+.SBP_Board_Content{
+    padding: 20px;
+    padding-top: 0;
+    /* resize: horizontal; */
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* transition: width 0s; */
+}
+
+.SBP_Board_Content > span > .Accordion > .Accordion_Content{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-gap: 10px;
+}
+
+.SBP_Board_Queue{
+    background-color: var(--BG-Color-MainView);
+    padding: 10px;
+    overflow-y: auto;
+    position: fixed;
+    width: 500px;
+    right: 0;
+    height: calc(100% - 90px);
+    border-left: solid var(--Color-Borders) 3px;
+}
+
+.SBP_Board_Queue[State = "Collapsed"]{
+    width: 40px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.SBP_Board_Queue[State = "Collapsed"] *{
+    opacity: 0%;
+    pointer-events: none;
+}
+
+.SBP_Board_Queue[State = "Collapsed"] > .SBP_Board_Queue_Title > .SBP_Board_Queue_Title_Button{
+    opacity: 100% !important;
+    pointer-events: all;
+}
+
+.SBP_Board_Queue[State = "Collapsed"] > .SBP_Board_Queue_Title{
+    opacity: 100% !important;
+    pointer-events: all;
+}
+
+
+.SBP_Board_Queue_Title{
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    grid-gap: 10px;
+    align-items: center;
+}
+
+.SBP_Board_Queue_Title_Button{
+    width: 30px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.SBP_Board_Queue_Title_Button:hover{
+    background-color: var(--BG-Color-Button-Secondary-Hover);
+}
+
+.SBP_Sound_Button[State = "Edit"]{
+    display: grid;
+    grid-template-rows: 1fr 50px;
+    grid-template-columns: 1fr 20px;
+
+    /* grid-template-areas:
+        "Button InBetween"
+        "Controls InBetween"
+    ; */
+    grid-template-areas:
+        "Button Button"
+        "Controls Controls"
+    ;
+    grid-gap: 0px;
+    
+    background-color: var(--BG-Color-Button-Secondary);
+}
+
+.SBP_Sound_Button, .SBP_Sound_Button[State = "Play"]{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "Button";
+    grid-gap: 5px;
+}
+
+.SBP_Sound_Button_Button{
+    padding: 30px;
+    text-wrap: pretty;
+    grid-area: Button;
+}
+
+.SBP_Sound_Button_Button[State = "Playing"]{
+    border: solid var(--BG-Color-Button-Primary-Border-Primary) 3px;
+    /* animation-name: SBP_Sound_Button_Playing;
+    animation-duration: 3s;
+    animation-iteration-count: infinite; */
+}
+
+.SBP_Sound_Button_Button[State = "Paused"]{
+    border: solid var(--BG-Color-Button-Primary-Border-Secondary-Focus) 3px;
+    font-style: italic;
+}
+
+.SBP_Sound_Button[State = "Play"] > .SBP_Sound_Button_Controls, .SBP_Sound_Button[State = "Play"] > .SBP_Sound_Button_Controls_InBetween{
+    display: none;
+}
+
+.SBP_Sound_Button[State = "Edit"] > .SBP_Sound_Button_Controls, .SBP_Sound_Button[State = "Edit"] > .SBP_Sound_Button_Controls_InBetween{
+    display: grid;
+}
+
+.SBP_Sound_Button_Controls{
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    grid-template-columns: 1fr 1fr;
+    /* grid-gap: 5px; */
+    display: none;
+    grid-area: Controls;
+}
+
+.SBP_Sound_Button_Controls_Item_Icon{
+    width: 20px;
+}
+
+.SBP_Sound_Button_Controls_InBetween{
+    grid-area: InBetween;
+    width: 20px;
+    height: 100%;
+    background-color: var(--BG-Color-Button-Secondary-Hover);
+    cursor: pointer;
+}
+
+@keyframes SBP_Sound_Button_Playing{
+    0%{
+        border: solid transparent 3px;
+    }
+    50%{
+        border: solid var(--BG-Color-Button-Primary-Border-Primary) 3px;
+    }
+    100%{
+        border: solid transparent 3px;
+    }
+}
+
+.SBP_Add_Button{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.SBP_Board_Queue_List_Item{
+    pointer-events: none;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 
+        "Text Controls"
+        "Progress Progress"
+    ;
+}
+
+.SBP_Board_Queue_List_Item_Text{
+    grid-area: Text;
+}
+
+.SBP_Board_Queue_List_Item_Title{
+    font-family: var(--Text-Font-Primary);
+    color: var(--Text-Color);
+    margin: 0;
+}
+
+.SBP_Board_Queue_List_Item_Subtitle{
+    font-family: var(--Text-Font-Secondary);
+    color: var(--Text-Color);
+    margin: 0;
+}
+
+.SBP_Board_Queue_List_Item_Progress{
+    grid-area: Progress;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "Time_Start Time_End"
+        "Bar Bar"
+    ;
+}
+
+.SBP_Board_Queue_List_Item_Progress_Time_Start, .SBP_Board_Queue_List_Item_Progress_Time_End{
+    font-family: var(--Text-Font-Secondary);
+    color: var(--Text-Color);
+    margin: 0;
+}
+
+.SBP_Board_Queue_List_Item_Progress_Time_Start{
+    grid-area: Time_Start;
+}
+
+.SBP_Board_Queue_List_Item_Progress_Time_End{
+    grid-area: Time_End;
+    text-align: right;
+}
+
+.SBP_Board_Queue_List_Item_Progress_Bar{
+    grid-area: Bar;
+    overflow: hidden;
+    width: 100%;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.SBP_Board_Queue_List_Item_Progress_Bar_Element{
+    width: 20%;
+    height: 5px;
+    background-color: var(--Accent-Color);
+}
+
+.SBP_Board_Queue_List_Item_Progress_Bar_Handle{
+    background-color: var(--Accent-Color-Hover);
+    width: 20px;
+    height: 20px;
+    position: absolute;
+}
+
+
+.SBP_Board_Queue_List_Item_Controls{
+    grid-area: Controls;
+    display: flex;
+    flex-direction: row;
+    pointer-events: all;
+}
+
+.SBP_Board_Queue_List_Item_Controls_Item{
+    width: 40px;
+    height: 40px;
+    background-color: unset;
+    border: unset;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.SBP_Board_Queue_List_Item_Controls_Item:hover{
+    background-color: var(--BG-Color-Button-Secondary-Hover);
+}
+
+.SBP_Board_Queue_List_Item_Controls_Item > img{
+    width: 30px;
+    /* padding: 5px; */
+}
+
+@media only screen and (max-width: 800px){
+    .SBP_Board{
+        grid-template-columns: unset;
+        grid-template-rows: 1fr;
+        margin-bottom: 130px;
+        height: calc(100% - 130px);
+        position: unset;
+        width: 100%;
+    }
+
+    .SBP_Board[State = "Expanded"]{
+        width: unset;
+    }
+
+    .SBP_Board_Content{
+        resize: unset;
+        width: -webkit-fill-available !important;
+    }
+
+    .SBP_Board_Queue{
+        position: absolute;
+        bottom: 0;
+        width: -webkit-fill-available;
+        height: 130px;
+        overflow-y: hidden;
+        border-left: unset;
+        border-top: solid var(--Color-Borders) 3px;
+    }
+
+    .SBP_Board_Queue[State = "Collapsed"]{
+        width: -webkit-fill-available;
+    }
+
+    .SBP_Board_Queue[State = "Collapsed"] *{
+        opacity: 100%;
+        pointer-events: all;
+    }
+
+    .SBP_Board_Queue[State = "Expanded"]{
+        height: calc(100% - 20px);
+        overflow-y: auto;
+    }
+}

@@ -23,8 +23,10 @@
         /* width: fit-content; */
     }
     .Ribbon_Section{
-        height: 35px;
-
+        /* height: 35px; */
+    }
+    .Ribbon_Section_Item_Text{
+        display: none;
     }
 }
 
@@ -69,9 +71,15 @@
     .LoadingScreen_Splash_Window_Main{
         background-color: unset;
     }
-    .LoadingScreen_Splash_Window_Loader{
-        width: 60%;
+    .LoadingScreen_Splash_Window_Loader, .LoadingScreen_Simple_Bottom_Loader{
+        width: 300px;
         background-color: unset;
+        margin-left: 50px;
+        margin-right: 50px;
+        border-radius: 25px;
+    }
+    .LoadingScreen_Splash_Window_Loader > .General_Loading_Bar{
+        border-radius: 25px;
     }
 }
 
@@ -108,15 +116,22 @@
 }
 
 @media only screen and (max-width: 700px){
-    .Sidebar{
+    .Sidebar[Style_NavigationBarOnSmallScreen = "Disabled"][State = "Collapsed"]{
+        transform: translateX(-100%);
+    }
+    .Sidebar[Style_NavigationBarOnSmallScreen = "Disabled"][State = "Expanded"]{
+        transform: unset;
+    }
+    .Sidebar[Style_NavigationBarOnSmallScreen = "Enabled"]{
         width: 100% !important;
         bottom: 0;
-        height: 43px;
+        height: 50px;
         display: flex;
         flex-direction: row;
         justify-content: center;
+        transition: height 0s;
     }
-    .Sidebar > .Tabs_Vertical_Container_Selector_Item > .Tabs_Vertical_Container_Selector_Item_Text{
+    .Sidebar[Style_NavigationBarOnSmallScreen = "Enabled"] > .Tabs_Vertical_Container_Selector_Item > .Tabs_Vertical_Container_Selector_Item_Text{
         position: fixed;
         bottom: 60px;
         left: 50%;
@@ -129,23 +144,24 @@
         /* display: none; */
         opacity: 0%;
         transform: translateX(-50%);
+        pointer-events: none;
     }
-    .Sidebar > .Tabs_Vertical_Container_Selector_Item:hover > .Tabs_Vertical_Container_Selector_Item_Text{
+    .Sidebar[Style_NavigationBarOnSmallScreen = "Enabled"] > .Tabs_Vertical_Container_Selector_Item:hover > .Tabs_Vertical_Container_Selector_Item_Text{
         display: block;
         opacity: 100%;
         /* transform: translateY(0px); */
     }
-   .Sidebar > .Tabs_Vertical_Container_Selector_Item[State="Selected"]:hover > .Tabs_Vertical_Container_Selector_Item_Text{
+   .Sidebar[Style_NavigationBarOnSmallScreen = "Enabled"] > .Tabs_Vertical_Container_Selector_Item[State="Selected"]:hover > .Tabs_Vertical_Container_Selector_Item_Text{
         border: solid var(--Color-Borders-Hover);
         background-color: var(--BG-Color-Button-General-Accent-Focus);
         box-shadow: var(--Element-BoxShadow-Hover);
     }
-    .Sidebar > .Tabs_Vertical_Container_Selector_Item{
+    .Sidebar[Style_NavigationBarOnSmallScreen = "Enabled"] > .Tabs_Vertical_Container_Selector_Item{
         margin-left: 5px;
         min-width: 1px;
         justify-items: center;
     }
-    .Sidebar > .Tabs_Vertical_Container_Selector_Item[State="Selected"]{
+    .Sidebar[Style_NavigationBarOnSmallScreen = "Enabled"] > .Tabs_Vertical_Container_Selector_Item[State="Selected"]{
         min-width: 80px;
         grid-template-columns: 1fr 1px;
     }
@@ -156,5 +172,68 @@
     .Ribbon[Style_Margin_Sidebar="Enabled"]{
         margin-left: unset;
         width: 100%;
+    }
+    .Tab_Container_Content_Item[Tabs_Transition="CurrentTab_Upwards"]{
+        animation-name: Tabs_Transition_CurrentTab_Left;
+    }
+    
+    .Tab_Container_Content_Item[Tabs_Transition="NewTab_Upwards"]{
+        animation-name: Tabs_Transition_NewTab_Left;
+    }
+    
+    .Tab_Container_Content_Item[Tabs_Transition="CurrentTab_Downwards"]{
+        animation-name: Tabs_Transition_CurrentTab_Right;
+    }
+    
+    .Tab_Container_Content_Item[Tabs_Transition="NewTab_Downwards"]{
+        animation-name: Tabs_Transition_NewTab_Right;
+    }
+    .Header_SidebarToggle[Style_NavigationBarOnSmallScreen = "Enabled"]{
+        display: none;
+    }
+    .Header[Style_NavigationBarOnSmallScreen = "Enabled"][Style_Margin_SidebarToggle="Enabled"]{
+        margin-left: 0px;
+        width: 100%;
+    }
+    .MainContent[Style_NavigationBarOnSmallScreen="Enabled"][Style_Margin_Header="Enabled"]{
+        margin-top: unset;
+        margin-top: 43px;
+        height: calc(100% - 86px);
+    }    
+    .MainContent[Style_NavigationBarOnSmallScreen="Enabled"][Style_Margin_Ribbon="Enabled"]{
+        margin-top: 33px;
+        height: calc(100% - 76px);
+    }
+    
+    .MainContent[Style_NavigationBarOnSmallScreen="Enabled"][Style_Margin_Header="Enabled"][Style_Margin_Ribbon="Enabled"]{
+        margin-top: 76px;
+        height: calc(100% - 119px);
+    }
+    .Header_PageNavigation_Menu{
+        animation-duration: 0.2s;
+    }
+    @keyframes Overlays_Menu_Open{
+        0% {
+            max-height: 75%;
+            opacity: 0%;
+            transform: translateY(-20px);
+        }
+        100% {
+            max-height: 100%;
+            opacity: 100%;
+            transform: translateY(0px);
+        }
+    }    
+    @keyframes Overlays_Menu_Close{
+        0% {
+            max-height: 100%;
+            opacity: 100%;
+            transform: translateY(0px);
+        }
+        100% {
+            max-height: 0%;
+            opacity: 0%;
+            transform: translateY(-20px);
+        }
     }
 }

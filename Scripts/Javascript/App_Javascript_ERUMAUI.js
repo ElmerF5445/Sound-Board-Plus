@@ -13,11 +13,12 @@ function Header_Toggle_PageNavigation(){
         // Element_Style_Display("Header_PageNavigation_Menu", "grid");
 		Element_Attribute_Set("Header_PageNavigation_Menu", "State", "Active");
         Element_Style_Animate("Header_PageNavigation_Menu", "Overlays_Menu_Open", "0.3s", "forwards");
-		Element_Style_Animate_Batch_QuerySelector(".Header_PageNavigation_Menu_Content", "Overlays_Menu_Content_Open", "0.3s", "forwards", "1", 200);
+		Element_Style_Animate_Batch_QuerySelector(".Header_PageNavigation_Menu_Content", "Overlays_Menu_Content_Open", "0.3s", "forwards", "1", 50);
+		Element_Style_Animate_Batch_QuerySelector(".Header_PageNavigation_Menu_Button_Item", "Overlays_Menu_Content_Open", "0.3s", "forwards", "1", 50);
     } else if (Element_Attribute_Get("Header_PageNavigation_Menu", "State") == "Active"){
         Element_Style_Animate("Header_PageNavigation_Menu", "Overlays_Menu_Close", "0.3s", "forwards");
 		// Element_Attribute_Set("Header_PageNavigation_Menu", "State", "Inactive");
-		Element_Style_Animate_Batch_QuerySelector(".Header_PageNavigation_Menu_Content", "Overlays_Menu_Content_Close", "0.3s", "forwards", "1", 200);
+		Element_Style_Animate_Batch_QuerySelector(".Header_PageNavigation_Menu_Content", "Overlays_Menu_Content_Close", "0.3s", "forwards", "1", 0);
         setTimeout(function(){Element_Attribute_Set("Header_PageNavigation_Menu", "State", "Inactive");}, 300);
     }
 }
@@ -27,10 +28,11 @@ function Header_Toggle_StatusTray(){
         // Element_Style_Display("Header_StatusTray_Menu", "grid");
 		Element_Attribute_Set("Header_StatusTray_Menu", "State", "Active");
         Element_Style_Animate("Header_StatusTray_Menu", "Overlays_Menu_Open", "0.3s", "forwards");
-		Element_Style_Animate_Batch_QuerySelector(".Header_StatusTray_Menu_Content", "Overlays_Menu_Content_Open", "0.3s", "forwards", "1", 200);
+		Element_Style_Animate_Batch_QuerySelector(".Header_StatusTray_Menu_Content", "Overlays_Menu_Content_Open", "0.3s", "forwards", "1", 50);
+		Element_Style_Animate_Batch_QuerySelector(".Header_PageNavigation_Menu_Button_Item", "Overlays_Menu_Content_Open", "0.3s", "forwards", "1", 50);
     } else if (Element_Attribute_Get("Header_StatusTray_Menu", "State") == "Active"){
         Element_Style_Animate("Header_StatusTray_Menu", "Overlays_Menu_Close", "0.3s", "forwards");
-		Element_Style_Animate_Batch_QuerySelector(".Header_StatusTray_Menu_Content", "Overlays_Menu_Content_Close", "0.3s", "forwards", "1", 200);
+		Element_Style_Animate_Batch_QuerySelector(".Header_StatusTray_Menu_Content", "Overlays_Menu_Content_Close", "0.3s", "forwards", "1", 0);
         setTimeout(function(){Element_Attribute_Set("Header_StatusTray_Menu", "State", "Inactive");}, 300);
     }
 }
@@ -138,6 +140,7 @@ var Tabs_Target_Container_TabList = [];
 var Tabs_Target_Container_TabList_ID = [];
 var Tabs_Target_Container_TabList_ID_Index_CurrentTab;
 var Tabs_Target_Container_TabList_ID_Index_TargetTab;
+var Tabs_MainView_OriginalState;
 function Tabs_ChangeTab(ButtonID, Layout){
 	Tabs_Target_Container_TabList = [];
 	Tabs_Target_Container_TabList_ID = [];
@@ -225,6 +228,19 @@ function Tabs_ChangeTab(ButtonID, Layout){
 	if (document.getElementById(Tabs_Button_ID).getAttribute("Tabs_UseHeaderTitle") == "true"){
 		document.getElementById("pageElement_Header_Title").innerHTML = Tabs_Button_TabTitle;
 	}
+	if (App_Property != null || App_Property != undefined){
+		if (Element_Attribute_Get(Tabs_Button_ID, "Tabs_UseFullContainer") == null){
+			
+		} else if (Element_Attribute_Get(Tabs_Button_ID, "Tabs_UseFullContainer") == "true"){
+			App_Property.Page.MainView.UseFullContainer = true;
+			Startup_Page_ApplyConfigurations("QuickChange", "ContainerOnly");
+		} else if (Element_Attribute_Get(Tabs_Button_ID, "Tabs_UseFullContainer") == "false"){
+			App_Property.Page.MainView.UseFullContainer = false;
+			Startup_Page_ApplyConfigurations("QuickChange", "ContainerOnly");
+		}
+		
+	}
+	
 	Tabs_Target_Container.setAttribute("Tabs_CurrentTab", Tabs_Button_Target_Tab);
 }
 
@@ -320,12 +336,26 @@ function Buttons_Toggle(ID){
 	var Button_Element = document.getElementById(ID);
 	if (Button_Element.getAttribute("State") == "Active"){
 		Button_Element.setAttribute("State","Inactive");
+		Button_Element.setAttribute("IsActive","false");
 	} else if (Button_Element.getAttribute("State") == "Inactive"){
 		Button_Element.setAttribute("State","Active");
+		Button_Element.setAttribute("IsActive","true");
 	} else if (Button_Element.getAttribute("State") == null){
 		Button_Element.setAttribute("State","Active");
+		Button_Element.setAttribute("IsActive","true");
 	}
 }
+
+let ToggleButtons = document.querySelectorAll(".Toggle");
+ToggleButtons.forEach(ToggleButtons_Element => {
+	if (ToggleButtons_Element.getAttribute("IsActive") == null){
+		if (ToggleButtons_Element.getAttribute("State") == "Active"){
+			ToggleButtons_Element.setAttribute("IsActive", "true");
+		} else {
+			ToggleButtons_Element.setAttribute("IsActive", "false");
+		}
+	}
+});
 
 function Radio_Select(ID){
 	var Radio_Button_Element = document.getElementById(ID);
@@ -435,3 +465,21 @@ TextAreas.forEach(TextArea_Element => {
 		});
 	}
 });
+
+function TextArea_SnapToSize_All(){
+	TextAreas = document.querySelectorAll(".Input_Text_Long");
+	TextAreas.forEach(TextArea_Element => {
+		if (TextArea_Element.getAttribute("Autoresize") == "true"){
+			TextArea_Element.style.height = 'auto';
+			TextArea_Element.style.height = ((TextArea_Element.scrollHeight) - 20) + 'px';
+		}
+	});
+}
+
+function TextArea_SnapToSize(ID){
+	TextAreas = document.getElementById(ID);
+	if (TextAreas.getAttribute("Autoresize") == "true"){
+		TextAreas.style.height = 'auto';
+		TextAreas.style.height = ((TextAreas.scrollHeight) - 20) + 'px';
+	}
+}

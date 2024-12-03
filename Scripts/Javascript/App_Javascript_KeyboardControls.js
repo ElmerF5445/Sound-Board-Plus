@@ -2,7 +2,7 @@ let keysPressed = {};
 document.addEventListener('keydown', (event) => {
 	keysPressed[event.key] = true;
 
-	if (keysPressed['Control'] && event.key == 'b') {
+	if (keysPressed['Alt'] && event.key == 'b') {
         if(Element_Attribute_Get("ClockScreen", "UI_Status") != "Disabled"){
             ClockScreen_Toggle();
         }
@@ -36,10 +36,10 @@ document.addEventListener('keydown', (event) => {
 		}
 	}
 
-	if (keysPressed['Control'] && event.key == "Shift"){
-		event.preventDefault();
-		Projects_Save_Project();
-	}
+	// if (keysPressed['Control'] && event.key == "Shift"){
+	// 	event.preventDefault();
+	// 	Projects_Save_Project();
+	// }
 
 });
 
